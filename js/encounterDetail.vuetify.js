@@ -3,7 +3,7 @@ var vm = new Vue({
     vuetify:new Vuetify(),
     data:{
         model:{
-
+            tab:null
         }
     }
 })
