@@ -8,7 +8,7 @@ var vm = new Vue({
         showSideBar:false,
         items:[
             {title: 'Teatchings', icon: 'mdi-play-box', href:'teatching.php' },
-            {title: 'Encounters ', icon: 'mdi-human-male-female' , href:"encounters.php"},
+            {title: 'Encounters ', icon: 'mdi-human-male-female' , href:"encounter.php"},
             {title: 'BLible Stories',  icon: 'mdi-book-open-variant', href:"bibleStories.php"},
             {title:'Soaking Worship',icon:'mdi-music-note-eighth-dotted',href:'soakingWorhsip.php'},
             {title:'Prayer Lines ',icon:'mdi-church',href:'prayeLines.php'},

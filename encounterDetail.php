@@ -20,6 +20,7 @@
   $info = $table_encounter->findById($id);
   $id_img = $info['id_img'];
   $path = $info['path'].".".$info['extension'];
+  $path = $app->getImage("all_cat",$path);
   $titre = $info['titre'];
   $file_name = $table_encounter->getPoster($table_image,$id_img);
   $poster = $app->getImage('dailybreads',$file_name);

@@ -45,7 +45,7 @@
             <v-col cols="12" md="4" height="35vh">
               <v-card link elevation="5" href='EncounterDetail.php?id=<?=$value["id"]?>'>
                 <v-img
-                  src="<?=$app->getImage("dailybreads",$path_img['path'],$path_img['extension'])?>"
+                  src="<?=$app->getImage("dailybreads",$path_img['path'].".".$path_img['extension'])?>"
                   contain height="35vh" class="grey darken-4">
                   <template v-slot:placeholder>
                     <v-row class="fill-height ma-0" align="center" justify="center">
