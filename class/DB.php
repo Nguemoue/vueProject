@@ -102,7 +102,6 @@
         function activeAccount($email){
             $res = $this->pdo->exec("UPDATE users set active = 1 , token = null, activate_at = NOW() WHERE email = '$email' ");
 
-           ;
         }
         #cette fonction donne le nom+l'extension du profile de l'utilisateur suivant l'id
         function getProfil($id){

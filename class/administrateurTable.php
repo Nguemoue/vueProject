@@ -23,5 +23,22 @@
             }
             return $this->pdo;
         }
+        #function qui recupere le nom
+        function getNom(usersTable $table,int $id):String{
+            $pdo = $this->getPdo();
+            $res = $table->getNom($id);
+            #je selectionne le titre de la personne
+            $titre = $this->select('grade',"where id = $id");
+            $titre = $titre['grade'];
+            return $titre." ".$res;
+        }
+        #selectione les donnes
+        function select(Array | String $settings,String $clause):Array{
+            $sql = $this->query("select","administrateur",$settings,$clause);
+            $pdo = $this->getPdo();
+            $req=$pdo->query($sql);
+            $res=$req->fetch();
+            return $res?$res:[];
+        }
     }
 

@@ -23,7 +23,7 @@
         <v-spacer></v-spacer>
         <v-icon>mdi-magnify</v-icon>
     </v-app-bar>
-    <v-navigation-drawer perminent expand-on-hover app color="blue" class="lighten-2">
+<!--    <v-navigation-drawer perminent expand-on-hover app color="blue" class="lighten-2">-->
         <v-spacer></v-spacer>
         <v-list link nav dense>
             <v-list-item-group color="red">
@@ -38,24 +38,25 @@
     </v-navigation-drawer>
     <v-main app>
       <v-container>
-        <h1 class="text-center">Liste Des Encounters</h1>
+        <h1 class="text-center mb-8">Liste Des Encounters (<?= count($all_encounter) ?>)</h1>
         <v-row>
           <?php foreach ($all_encounter as $key => $value): ?>
             <?php $path_img = $table_encounter->getImg($table_image, $value['id_img']); ?>
             <v-col cols="12" md="4" height="35vh">
               <v-card link elevation="5" href='EncounterDetail.php?id=<?=$value["id"]?>'>
-                <v-img
+                  <v-img
                   src="<?=$app->getImage("dailybreads",$path_img['path'].".".$path_img['extension'])?>"
-                  contain height="35vh" class="grey darken-4">
+                   height="35vh" class="grey darken-4">
                   <template v-slot:placeholder>
                     <v-row class="fill-height ma-0" align="center" justify="center">
                       <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
                     </v-row>
                   </template>
+
                 </v-img>
-                <v-card-title class="text-h6">
-                  <?=$value['titre']?>
-                </v-card-title>
+                  <v-card-title class="text-h6">
+                     <?=$value['titre']?>
+                  </v-card-title>
               </v-card>
             </v-col>
           <?php endforeach ?>

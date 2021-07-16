@@ -64,7 +64,14 @@
             if(!$this->isConnected()){
                 die('erruer imposiible de recupere l id de l admin');
             }
-            $id_user = $table->getId();
+            $id_user =   $table->getId();
+            return  $id_user;
+        }
+        function  previousPage():string{
+           if(isset($_SERVER['HTTP_REFERER']) and !isset($_GET['id'])){
+              return $_SERVER['HTTP_REFERER'];
+           }
+           return  'index.php';
         }
 
     }

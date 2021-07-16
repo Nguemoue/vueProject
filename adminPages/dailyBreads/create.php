@@ -11,6 +11,7 @@
    $table_user= Table::getInstance()->get('users');
    $app = App::getInstance();
    $id = $table_user->getId();
+
    #je verifie si il est amdin
    if(!$app->isAdmin($table_user)){
       die("vous n'avez pas assez a cette page : <a href='../../'>retour</a>");
@@ -36,10 +37,12 @@
 
 <div id="app">
   <v-app>
-    <v-app-bar app>
+    <v-app-bar app color="blue">
       <v-app-bar-nav-icon>
          <template #default>
-            <v-icon class="">mdi-account</v-icon>
+            <v-btn href="../../administrateur.php" icon>
+                <v-icon>mdi-arrow-left</v-icon>
+            </v-btn>
          </template>
       </v-app-bar-nav-icon>
       <v-app-bar-title>
@@ -53,11 +56,11 @@
    <v-main app>
       <v-container>
          <h1 class="text-center teal--text font-weight-bold text-capitalize text-decoration-underline">Info Sur Le Daily Breads</h1>
-            <v-card>
-               <v-toolbar>
+            <v-card outined class="mt-5">
+               <v-toolbar color="blue" class="lighten-2">
                   <v-toolbar-title>Enregistrez votre Daily Breads</v-toolbar-title>
                </v-toolbar>
-               <v-form class="border-info" method="post" action="<?=$_SERVER['PHP_SELF']?>" enctype="multipart/form-data" v-model="model.form">
+               <v-form class="border-info mt-5 px-3 pb-5" method="post" action="<?=$_SERVER['PHP_SELF']?>" enctype="multipart/form-data" v-model="model.form">
                   <v-container>
                      <?php if (!empty($_POST) and isset($operation_success)): ?>
                         <v-alert type="success" prominent>
@@ -65,17 +68,17 @@
                         </v-alert>
                      <?php endif ?>
                      <div>
-                        <v-text-field dense label="Nom Du Daily Bread" filled name="nom" v-model="model.nom"
+                        <v-text-field outlined dense label="Nom Du Daily Bread" filled name="nom" v-model="model.nom"
                         :rules="rules.nom"></v-text-field>
                      </div>
                      <div>
-                        <v-text-field dense label="Titre Du Daily Bread" filled name="titre" v-model="model.titre" :rules="rules.titre"></v-text-field>
+                        <v-text-field dense  outlined label="Titre Du Daily Bread" filled name="titre" v-model="model.titre" :rules="rules.titre"></v-text-field>
                      </div>
                      <div>
-                        <v-textarea dense label="Description" filled name="description" v-model="model.description" :rules="rules.description"></v-textarea>
+                        <v-textarea dense outlined label="Description" filled name="description" v-model="model.description" :rules="rules.description"></v-textarea>
                      </div>
                      <div>
-                        <v-file-input dense filled label="L'image Du Daily Bread"
+                        <v-file-input dense outlined filled label="L'image Du Daily Bread"
                            prepend-inner-icon="mdi-camera" prepend-icon="" chips show-size counter accept="image/*" name="img" :rules="rules.img">
                         </v-file-input>
                      </div>

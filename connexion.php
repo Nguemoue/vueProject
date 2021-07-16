@@ -45,7 +45,7 @@
                     <template #divider>
                         <v-icon>mdi-forward</v-icon>
                     </template>
-                    <template #item={item}>
+                    <template #item="{item}">
                         <v-breadcrumbs-item :disabled="item.disabled" :href="item.href">{{  item.text }}</v-breadcrumbs-item>
                     </template>
                 </v-breadcrumbs>
@@ -71,7 +71,7 @@
                 <br>
                     <v-text-field  dense filled label="Email" name="Email" outlined append-icon="mdi-email"  type="email" v-model="model.email"  :rules="rules.email" hint="Entrez votre adresse mail" persistent-hint></v-text-field><br>
                 <v-text-field :type=" showpass? 'text':'password'" dense name="Password"  outlined filled label="Mot de Passe"  :append-icon=" showpass ? 'mdi-eye' : 'mdi-eye-off' " @click:append=" showpass = !showpass " :rules="rules.password" v-model="model.password" persistent-hint hint="entrez votre mot de passe" ></v-text-field>
-                <a href="#">mot de passe oublié ?</a><br>
+                <a href="passwordForget.php">mot de passe oublié ?</a><br>
 
                 <v-container>
                         <v-btn type="reset" color="error" class="p-4">

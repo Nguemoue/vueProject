@@ -2,6 +2,7 @@
 
 class Validator{
    private  $errors = [];
+   private  int $max_size = 2;
 
    function __construct(){
 
@@ -16,13 +17,21 @@ class Validator{
 
     function validateImg($img){
         $taille = (int) $img["size"];
-        if($taille > pow(10,6)*2){
-            $this->addError("La taille de votre photo ne doit pas depasse 2 méga");
+        $max_size = 4;
+        if($taille > pow(10,6)*$this->max_size){
+            $this->addError("La taille de votre photo ne doit pas depasse {$this->getMaxSize()} méga");
         }
         if($img['error']!=0){
             $this->addError("Erreur rencontré sur la photo de profil");
         }
     }
+    function setMaxSize(int $size){
+      $this->max_size = $size;
+    }
+    function  getMaxSize():int{
+      return $this->max_size;
+    }
+
     function validateVideo($video){
         $taille = (int) $video["size"];
         $max_size = pow(10,6)*100;

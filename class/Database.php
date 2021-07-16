@@ -15,7 +15,7 @@
         }
         // le constructeur de notre class
         function __construct(){
-            var_dump("database create");
+
             // je recupere ma configuration
             $config = Config::getInstance();
             try{

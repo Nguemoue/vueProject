@@ -30,7 +30,7 @@
             $pdo = $this->getPdo();
             $req = $pdo->query($sql);
             $res = $req->fetch();
-            return App::getInstance()->getImage("all_cat",$res['path'],$res['extension']);
+            return App::getInstance()->getImage("all_cat",$res['path'].".".$res['extension']);
         }
         function getDescriptionById(int $id):String{
             $sql = $this->query("select","videos","description","where id = $id ");

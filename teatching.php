@@ -34,7 +34,7 @@
         <v-main app>
 
 
-  <v-container class="fill-height" fluid style="min-height: 434px">
+  <v-container  style="min-height: 434px">
     <v-fade-transition mode="out-in">
       <v-row>
       <?php foreach ($teatchings as $key => $value): ?>
@@ -42,7 +42,7 @@
         <v-col cols="12" md="4" height="35vh">
           <v-card link elevation="5" href='videoDetail.php?id=<?=$value["id"]?>&img_path=<?=$path_img['path'].".".$path_img['extension']?>'>
             <v-img
-              src="<?=$app->getImage("dailybreads",$path_img['path'],$path_img['extension'])?>"
+              src="<?=$app->getImage("dailybreads",$path_img['path'].".".$path_img['extension'])?>"
               contain
               height="35vh"
               class="grey darken-4"

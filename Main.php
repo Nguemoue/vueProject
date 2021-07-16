@@ -1,4 +1,3 @@
-
 <v-container>
    <!-- l'lement que va utiliser mon tinytypewritter -->
    <h1 id="appName" class="text-center"></h1>
@@ -28,24 +27,49 @@
             <?php  $res = $table_dailybreads->find(); ?>
             <?php if (!empty($res)): ?>
                <?php foreach ($res as $key=>$value): ?>
-               <v-col cols="12" md="4" height="35vh">
-               <v-card link >
-                  <v-toolbar>
-                     <v-toolbar-title>le <?= $value['create_at']?></v-toolbar-title>
+               <v-col cols="12" md="12" class="py-5 px-8">
+               <v-card  color="grey" width="100%">
+                  <v-toolbar color="grey">
+                     <v-toolbar-title>le <?= $value['titre']?></v-toolbar-title>
+                      <v-spacer></v-spacer>
+                      <v-menu transition="scale-transition" bottom offset-y>
+                        <template #activator="{on,attr}">
+                            <v-btn v-bind="attr" v-on="on" icon>
+                                <v-icon>mdi-information</v-icon>
+                            </v-btn>
+                        </template>
+                          <v-sheet>
+                              <v-col cols="12">
+                                  <b>Titre:</b> <?=$value['titre'] ?>
+                              </v-col>
+                              <v-col cols="12">
+                                  <b>Date de publication</b> : <?=$value['create_at'] ?>
+                              </v-col>
+                              <hr>
+                              <v-col cols="12">
+                                 <b> Description:</b>
+                                  <br>
+                                 <v-container>
+                                    <?=$value['description'] ?>
+                                 </v-container>
+                              </v-col>
+                          </v-sheet>
+                      </v-menu>
                   </v-toolbar>
-                  <v-img src="img/dailyBreads/<?= $value['path'].".".$value['extension']?>"contain
+                  <v-img src="<?= $app->getImage("dailybreads",$value['path'].".".$value['extension']) ?> "
                      height="35vh" class="grey darken-4" >
-                     <template v-slot:placeholder>
+                     <template v-slot="placeholder">
                         <v-row class="fill-height ma-0" align="center" justify="center">
                            <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
                         </v-row>
                      </template>
+                      <v-card-title class="text-h6">
+                         <?=$value['titre']?>
+                      </v-card-title>
                   </v-img>
-                  <v-card-title class="text-h6">
-                        <?=$value['titre']?>
-                  </v-card-title>
                </v-card>
                </v-col>
+                    <hr>
                <?php endforeach ?>
             <?php else: ?>
                <h1> Aucun Daily Bread</h1>

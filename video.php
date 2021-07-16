@@ -25,12 +25,12 @@
                 </template>
                 <v-list>
                     <v-list-item link>
-                        <v-list-item-action><v-icon>mdi-cogs</v-icon></v-list-item-action>
+                        <v-list-item-actions><v-icon>mdi-cogs</v-icon></v-list-item-actions>
                         <v-list-item-content><v-list-item-title>configuration</v-list-item-title><v-list-item-subtitle>confirgurez votre profil</v-list-item-subtitle></v-list-item-content>
                     </v-list-item>
 
                     <v-list-item link>
-                        <v-list-item-action><v-icon>mdi-account</v-icon></v-list-item-action>
+                        <v-list-item-actions><v-icon>mdi-account</v-icon></v-list-item-actions>
                         <v-list-item-content>connexion</v-list-item-content>
                     </v-list-item>
                 </v-list>

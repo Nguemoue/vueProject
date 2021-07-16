@@ -7,6 +7,8 @@
 
   $table_image     = $table->get('image');
   $table_encounter = $table->get('encounter');
+  $table_user      = $table->get('users');
+  $table_admin     = $table->get('administrateur');
 
   $all_encounter = $table_encounter->find();
 
@@ -26,7 +28,8 @@
   $file_name = $table_encounter->getPoster($table_image,$id_img);
   $poster = $app->getImage('dailybreads',$file_name);
   $desc   = $info['description'];
-
+  $pub_date = $info['create_at'];
+  $nom_pub = $table_admin->getNom($table_user,$info['id_admin']);
 
 
 ?>
@@ -36,9 +39,14 @@
 <div id="app">
   <v-app>
     <v-app-bar app color="blue" short>
-      <v-app-bar-nav-icon outlined>
+      <v-app-bar-nav-icon >
         <template #default>
-          <v-icon>mdi-arrow-left</v-icon>
+            <v-btn href="<?= $app->previousPage() ?>" icon>
+                <v-icon>mdi-arrow-left</v-icon>
+            </v-btn>
+
+
+
         </template>
       </v-app-bar-nav-icon>
       <v-app-bar-title>Regarder</v-app-bar-title>
@@ -51,7 +59,7 @@
       <v-toolbar color="red">
         <v-toolbar-tile class="font-weight-bold">MENU</v-toolbar-tile>
         <v-spacer></v-spacer>
-        <v-btn icon x-large outlined @click="model.navigation=!model.navigation">
+        <v-btn icon x-large  @click="model.navigation=!model.navigation">
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </v-toolbar>
@@ -59,52 +67,78 @@
     <v-main app>
       <v-container>
         <h1 class="text-h6 text-center"> Nombres D'encounters Disponible : (<?=$nb_encounter?>)</h1>
-        <v-row>
-          <v-col cols="12" md="8" lg="7" xl="6">
-            <v-card>
-              <v-toolbar color="blue">
-                <v-toolbar-title class="white--text"><?=$titre?></v-toolbar-title>
-                <v-spacer></v-spacer>
-                <v-menu transition="scale-transition" bottom offset-y>
-                  <template #activator="{on,attr}">
-                    <v-btn icon v-bind="attr" v-on="on">
-                      <v-icon>mdi-information</v-icon>
-                    </v-btn>
-                  </template>
-                  <v-card flat min-height="200px" class="py-5 px-5">
-                    description de l'encounter:
-                    <hr>
-                    <v-container>
-                        <?=$desc?>
-                    </v-container>
-                  </v-card>
-                </v-menu>
-              </v-toolbar>
-              <v-card flat>
-                <video src="<?=$path?>" controls width="100%" poster="<?=$poster?>"></video>
-              </v-card>
-              <v-card-actions>
-                <v-btn icon><v-icon>mdi-thumb-up</v-icon></v-btn>
-                <v-btn icon><v-icon>mdi-thumb-down</v-icon></v-btn>
-                <v-spacer></v-spacer>
-                <v-divider vertical></v-divider>
-                <v-btn icon>
-                  <v-icon>mdi-comment</v-icon>
-                </v-btn>
-                <v-divider vertical></v-divider>
-                <v-btn icon>
-                  <v-icon>mdi-download</v-icon>
-                </v-btn>
-                <v-divider vertical></v-divider>
-                <v-btn icon>
-                  <v-icon>mdi-share</v-icon>
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-col>
-        </v-row>
+        <v-container height="50vh">
+            <v-row>
+                <v-col cols="12" md="8" lg="7" xl="6">
+                    <v-card color="grey">
+                        <v-toolbar color="blue">
+                            <v-toolbar-title class="white--text"><?=$titre?></v-toolbar-title>
+                            <v-spacer></v-spacer>
+                            <v-menu transition="scale-transition" bottom offset-y>
+                                <template #activator="{on,attr}">
+                                    <v-btn icon v-bind="attr" v-on="on">
+                                        <v-icon>mdi-information</v-icon>
+                                    </v-btn>
+                                </template>
+                                <v-card flat min-height="200px" class="py-5 px-5">
+                                    description de l'encounter:
+                                    <hr>
+                                    <v-container>
+                                       <?=$desc?>
+                                    </v-container>
+                                    encounter plublié le :
+                                    <hr>
+                                    <v-container>
+                                       <?=$pub_date?>
+                                    </v-container>
+                                    publié par:
+                                    <hr>
+                                    <v-container>
+                                        <b><?=$nom_pub?></b>
+                                    </v-container>
+                                </v-card>
+                            </v-menu>
+                        </v-toolbar>
+                        <video  height="400px" width="100%"
+                               poster="<?= $poster ?>"
+                               src="<?= $path ?>" controls="">
+                        </video>
+                        <v-card-actions color="grey">
+                            <v-btn icon @click='like'
+                                   :color="model.like?'blue':'' " class="text--lighten-2">
+                                <v-icon>mdi-thumb-up</v-icon>
+                            </v-btn>
+                            <v-btn icon @click="dislike"
+                                   :color="model.dislike?'blue' : '' " class="text--lighten-2">
+                                <v-icon>mdi-thumb-down</v-icon>
+                            </v-btn>
+                            <v-snackbar v-model="model.like" timeout="1000">
+                                vidéo likez
+                            </v-snackbar>
+                            <v-snackbar v-model="model.dislike" timeout="1000">
+                                vidéo dislikez
+
+                            </v-snackbar>
+                            <v-spacer></v-spacer>
+                            <v-btn icon>
+                                <v-icon>mdi-comment</v-icon>
+                            </v-btn>
+                            <v-btn icon>
+                                <a href="<?= $path ?>" download="">
+                                    <v-icon>mdi-download
+                                    </v-icon>
+                                </a>
+                            </v-btn>
+                            <v-btn icon>
+                                <v-icon>mdi-share</v-icon>
+                            </v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-col>
+            </v-row>
+        </v-container>
         <h1 class='text-center text-decoration-underline mb-5'>Autres</h1>
-        <v-row>
+
           <!-- mon container pour les auutres  -->
             <v-container>
                <v-row>
@@ -145,8 +179,10 @@
                                            <v-list-item-title>
                                               <b> <?=$value['titre']?> </b>
                                            </v-list-item-title>
+                                             <?php if ($_GET['id'] == $value['id']): ?>
                                            <v-list-item-subtitle>Video en cours de lecture.....
                                            </v-list-item-subtitle>
+                                             <?php endif ?>
                                          </v-list-item-content>
                                          <?php if ($_GET['id'] == $value['id']): ?>
                                          <v-list-item-actions>
@@ -163,7 +199,7 @@
                   </v-card>
                </v-row>
             </v-container>
-        </v-row>
+
       </v-container>
     </v-main>
   </v-app>
