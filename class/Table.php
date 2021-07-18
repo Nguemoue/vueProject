@@ -48,7 +48,7 @@ class Table
       return $this->db;
    }
 
-   function query(string $type, string $table_name,  String | array | int $settings, ?string $clause)
+   function query(string $type, string $table_name,  String|array $settings, string $clause)
    {
       if (strtolower($type) == "insert") {
          if ($this->keysMatched($settings)) {
@@ -95,12 +95,9 @@ class Table
             #je verifi d'abord si les cles existe
             foreach ($settings as $keys => $value) {
                if (!in_array($value, $this->table_attribute)) {
-                  die("Erreur les clé passe en parametre doivent correspondre aux champs
-                        de la table " . __FILE__ . " " . __LINE__);
-               }
-            }
-            foreach ($settings as $key => $value) {
-               $sql .= "$value,";
+                  throw new Exception("Erreur");
+               }else
+                  $sql .= "$value,";
             }
             $sql = substr($sql, 0, -1);
 

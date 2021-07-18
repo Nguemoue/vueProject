@@ -5,7 +5,9 @@ Autoloader::register();
 
 $app = App::getInstance();
 $table = Table::getInstance();
-var_dump($app,$table);
+$table_dailybreads = $table->get('dailybreads');
+$all = $table_dailybreads->find();
+
 ?>
 
 <?php
@@ -22,6 +24,33 @@ var_dump($app,$table);
                 <h1 class="text-center">
                     Bienvenu cher Admin
                 </h1>
+                <v-simple-table>
+                    <template #default>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nom</th>
+                                <th>Date Publication</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <?php foreach ($all as $key => $value): ?>
+                                <tr>
+                                    <td><?= $value['id'] ?></td>
+                                    <td><?= $value['nom'] ?></td>
+                                    <td><?= $value['create_at'] ?></td>
+                                    <td><v-btn color="success" href="<?=$_SERVER['PHP_SELF']?>?id=<?=$value['id']?>">
+                                        <v-icon left>mdi-pencil</v-icon>
+                                        Editer
+                                    </v-btn></td>
+                                </tr>
+                            <?php endforeach ?>
+
+                        </tbody>
+                    </template>
+                </v-simple-table>
             </v-container>
         </v-main>
 

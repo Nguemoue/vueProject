@@ -1,7 +1,7 @@
 <?php
     class dailybreadsTable extends Table{
 
-        protected $table_attribute = ['titre','path','create_at','extension','description','nom','id_post'];
+        protected $table_attribute = ['id','titre','path','create_at','extension','description','nom','id_post'];
         private $database;
         private $pdo;
         function __construct(Database $db){$this->database = $db;}
@@ -25,9 +25,8 @@
         }
 
         #retourne le nom de l'image de profil suivant la condition
-        function select($settings,$clause):?Array{
+        function select(Array | String $settings,string $clause):?Array{
             $sql = $this->query("select","dailybreads",$settings,$clause);
-            var_dump($sql);
             $pdo = $this->getPdo();
             $req = $pdo->query($sql);
             $res = $req->fetch();
@@ -53,5 +52,8 @@
         return $this->pdo;
         }
 
+        function findById(int $id):Array{
+            return $this->select("id,nom,titre,description","where id = $id");
+        }
 
     }
